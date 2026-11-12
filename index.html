@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101c35">
+<title>DEEP CLOUD STORE</title>
+<style>
+:root{--navy:#101c35;--navy2:#172847;--ink:#182338;--muted:#718096;--bg:#f4f6fa;--line:#e6eaf1;--white:#fff;--accent:#c9d8f2;--green:#159b65}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+header{background:linear-gradient(135deg,var(--navy),#243c63);color:#fff;padding:22px 18px 26px;border-radius:0 0 26px 26px}
+.top{max-width:980px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:22px;font-weight:900;letter-spacing:1.5px}.brand small{display:block;font-size:10px;letter-spacing:4px;color:#cbd8eb;margin-top:2px}
+.cart-pill{border:1px solid #ffffff55;background:#ffffff15;color:#fff;border-radius:999px;padding:10px 14px;font-weight:700}
+.hero{max-width:980px;margin:25px auto 0}.eyebrow{color:#cbd8eb;font-size:12px;letter-spacing:1px}.hero h1{font-size:clamp(27px,6vw,42px);line-height:1.25;margin:8px 0}.hero p{color:#d5deec;margin:0;font-size:14px}
+main{max-width:980px;margin:22px auto;padding:0 14px 45px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:20px 2px 14px}.section-head h2{font-size:20px;margin:0}.section-head span{font-size:12px;color:var(--muted)}
+.notice{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:#64748b;font-size:12px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 5px 18px #15294a08}
+.product-art{height:132px;background:linear-gradient(145deg,#e8edf6,#d7e1f0);display:grid;place-items:center;color:#415777;font-size:38px}
+.product-body{padding:12px}.product h3{font-size:14px;margin:0 0 5px}.desc{font-size:11px;color:var(--muted);min-height:32px}.price-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}.price{font-weight:850;color:var(--navy)}
+.add{border:0;background:var(--navy);color:#fff;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:750}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:20px}.panel h2{font-size:19px;margin:0 0 13px}
+.empty{color:var(--muted);font-size:13px;text-align:center;padding:15px}
+.cart-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.cart-item:last-child{border-bottom:0}.item-name{font-weight:700;font-size:13px}.item-price{font-size:12px;color:var(--muted);margin-top:3px}
+.qty{display:flex;align-items:center;gap:8px}.qty button{width:28px;height:28px;border:1px solid var(--line);background:#f8fafc;border-radius:8px}
+.total{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:13px;margin-top:8px;font-weight:850}
+form{display:grid;gap:11px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}input,textarea,select{width:100%;border:1px solid #dce2eb;border-radius:11px;padding:11px;background:#fff;outline:none}input:focus,textarea:focus,select:focus{border-color:#607da9}
+textarea{min-height:75px;resize:vertical}.submit{border:0;background:#159b65;color:#fff;border-radius:12px;padding:14px;font-weight:850;font-size:15px}
+.hint{font-size:11px;color:var(--muted);line-height:1.7}.footer{text-align:center;color:var(--muted);font-size:11px;padding:22px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#152642;color:#fff;padding:10px 15px;border-radius:99px;font-size:12px;display:none;z-index:9}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.product-art{height:165px}}
+@media(max-width:430px){.fields{grid-template-columns:1fr}.hero{margin-top:20px}.product-art{height:112px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="brand">DEEP CLOUD<small>ONLINE STORE</small></div>
+    <button class="cart-pill" onclick="document.getElementById('cart').scrollIntoView({behavior:'smooth'})">🛒 السلة <span id="cartCount">0</span></button>
+  </div>
+  <div class="hero">
+    <div class="eyebrow">تسوّق بسهولة</div>
+    <h1>اختياراتك المفضلة<br>بخطوات بسيطة</h1>
+    <p>اختر منتجاتك، أضفها إلى السلة، وأرسل طلبك مباشرة عبر واتساب.</p>
+  </div>
+</header>
+<main>
+  <div class="section-head"><h2>المنتجات</h2><span>أضف ما ترغب به إلى السلة</span></div>
+  <div class="notice">هذه نسخة تجريبية. المنتجات والأسعار أدناه أمثلة قابلة للتعديل قبل نشر المتجر.</div>
+  <section class="grid" id="products"></section>
+
+  <section class="panel" id="cart">
+    <h2>🛒 سلة المشتريات</h2>
+    <div id="cartItems" class="empty">السلة فارغة حالياً. أضف منتجاً للبدء.</div>
+    <div class="total"><span>الإجمالي</span><span id="total">0.00 د.أ</span></div>
+  </section>
+
+  <section class="panel">
+    <h2>بيانات التوصيل</h2>
+    <form id="orderForm">
+      <div class="fields">
+        <div><label for="customerName">الاسم الكامل *</label><input id="customerName" required autocomplete="name" placeholder="اسمك"></div>
+        <div><label for="customerPhone">رقم الهاتف *</label><input id="customerPhone" required inputmode="tel" autocomplete="tel" placeholder="07XXXXXXXX"></div>
+      </div>
+      <div class="fields">
+        <div><label for="governorate">المحافظة *</label>
+          <select id="governorate" required>
+            <option value="">اختر المحافظة</option><option>عمّان</option><option>الزرقاء</option><option>إربد</option><option>البلقاء</option><option>مادبا</option><option>الكرك</option><option>جرش</option><option>عجلون</option><option>المفرق</option><option>الطفيلة</option><option>معان</option><option>العقبة</option>
+          </select>
+        </div>
+        <div><label for="area">المنطقة / الحي *</label><input id="area" required placeholder="المنطقة والحي"></div>
+      </div>
+      <div><label for="address">العنوان بالتفصيل *</label><textarea id="address" required placeholder="اسم الشارع، أقرب معلم، رقم البناية..."></textarea></div>
+      <div><label for="notes">ملاحظات إضافية (اختياري)</label><textarea id="notes" placeholder="أي تفاصيل أخرى للطلب"></textarea></div>
+      <button class="submit" type="submit">إرسال الطلب عبر WhatsApp</button>
+      <div class="hint">عند الضغط، سيفتح واتساب برسالة تحتوي تفاصيل طلبك. راجعها ثم اضغط إرسال داخل واتساب لتأكيد الطلب.</div>
+    </form>
+  </section>
+  <div class="footer">DEEP CLOUD STORE · شكراً لزيارتكم</div>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+const WHATSAPP_NUMBER = "962799466460"; // رقم المتجر بصيغة دولية دون +
+const products = [
+  {id:1,name:"منتج تجريبي 1",description:"استبدل الاسم والوصف بصورة منتجك.",price:12,icon:"✦"},
+  {id:2,name:"منتج تجريبي 2",description:"أضف تفاصيل المنتج والسعر الصحيح.",price:8,icon:"◇"},
+  {id:3,name:"منتج تجريبي 3",description:"يمكنك إضافة منتجات أخرى من الكود.",price:15,icon:"◈"},
+  {id:4,name:"منتج تجريبي 4",description:"هذه بيانات مؤقتة للتجربة فقط.",price:10,icon:"✧"}
+];
+const cart = {};
+const money = n => n.toFixed(2) + " د.أ";
+function renderProducts(){
+ document.getElementById("products").innerHTML=products.map(p=>`
+ <article class="product"><div class="product-art">${p.icon}</div><div class="product-body">
+ <h3>${p.name}</h3><div class="desc">${p.description}</div>
+ <div class="price-row"><span class="price">${money(p.price)}</span><button class="add" onclick="addToCart(${p.id})">أضف للسلة</button></div>
+ </div></article>`).join("");
+}
+function addToCart(id){cart[id]=(cart[id]||0)+1;renderCart();showToast("تمت إضافة المنتج إلى السلة");}
+function changeQty(id,delta){cart[id]=(cart[id]||0)+delta;if(cart[id]<=0)delete cart[id];renderCart();}
+function renderCart(){
+ const entries=products.filter(p=>cart[p.id]);
+ document.getElementById("cartCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0);
+ const el=document.getElementById("cartItems");
+ if(!entries.length){el.className="empty";el.textContent="السلة فارغة حالياً. أضف منتجاً للبدء.";}
+ else{el.className="";el.innerHTML=entries.map(p=>`<div class="cart-item"><div><div class="item-name">${p.name}</div><div class="item-price">${money(p.price)} × ${cart[p.id]}</div></div><div class="qty"><button type="button" onclick="changeQty(${p.id},-1)">−</button><b>${cart[p.id]}</b><button type="button" onclick="changeQty(${p.id},1)">+</button></div></div>`).join("");}
+ const total=entries.reduce((s,p)=>s+p.price*cart[p.id],0);
+ document.getElementById("total").textContent=money(total);
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",1800);}
+document.getElementById("orderForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const entries=products.filter(p=>cart[p.id]);
+ if(!entries.length){alert("أضف منتجاً واحداً على الأقل إلى السلة.");document.getElementById("cart").scrollIntoView({behavior:"smooth"});return;}
+ const name=document.getElementById("customerName").value.trim();
+ const phone=document.getElementById("customerPhone").value.trim();
+ const governorate=document.getElementById("governorate").value;
+ const area=document.getElementById("area").value.trim();
+ const address=document.getElementById("address").value.trim();
+ const notes=document.getElementById("notes").value.trim();
+ const total=entries.reduce((s,p)=>s+p.price*cart[p.id],0);
+ const lines=entries.map(p=>`• ${p.name} — الكمية: ${cart[p.id]} — ${money(p.price*cart[p.id])}`);
+ const message=[
+ "طلب جديد من DEEP CLOUD STORE",
+ "--------------------------",
+ `الاسم: ${name}`,
+ `رقم الهاتف: ${phone}`,
+ `المحافظة: ${governorate}`,
+ `المنطقة: ${area}`,
+ `العنوان: ${address}`,
+ "",
+ "تفاصيل الطلب:",
+ ...lines,
+ "",
+ `إجمالي المنتجات: ${money(total)}`,
+ "رسوم التوصيل: يتم تأكيدها عبر المتجر",
+ `ملاحظات: ${notes||"لا يوجد"}`
+ ].join("\n");
+ window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+});
+renderProducts();renderCart();
+</script>
+</body>
+</html>
